@@ -1,0 +1,610 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-11-16T16:47:37.402553+00:00",
+  "__export_source": "gota-inteligente",
+  "resources": [
+    {
+      "_id": "wrk_gota",
+      "_type": "workspace",
+      "name": "Gota Inteligente API",
+      "description": "Testes manuais da API da Gota Inteligente (FIAP GS 2026.2 - SOA)",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "parentId": "wrk_gota",
+      "name": "Base Environment",
+      "data": {}
+    },
+    {
+      "_id": "env_local",
+      "_type": "environment",
+      "parentId": "env_base",
+      "name": "Local",
+      "data": {
+        "base_url": "http://localhost:8000"
+      }
+    },
+    {
+      "_id": "fld_0",
+      "_type": "request_group",
+      "parentId": "wrk_gota",
+      "name": "0. Status",
+      "metaSortKey": 1
+    },
+    {
+      "_id": "req_00",
+      "_type": "request",
+      "parentId": "fld_0",
+      "name": "Health check",
+      "method": "GET",
+      "url": "{{ _.base_url }}/health",
+      "metaSortKey": 0,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "fld_1",
+      "_type": "request_group",
+      "parentId": "wrk_gota",
+      "name": "1. Produtores",
+      "metaSortKey": 2
+    },
+    {
+      "_id": "req_01",
+      "_type": "request",
+      "parentId": "fld_1",
+      "name": "Listar produtores",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/produtores",
+      "metaSortKey": 1,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "req_02",
+      "_type": "request",
+      "parentId": "fld_1",
+      "name": "Filtrar por município",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/produtores?municipio=Ibiúna",
+      "metaSortKey": 2,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "req_03",
+      "_type": "request",
+      "parentId": "fld_1",
+      "name": "Cadastrar produtor",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/produtores",
+      "metaSortKey": 3,
+      "description": "Status esperado: 201",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Carlos Henrique (simulado)\",\n  \"telefone\": \"(15) 90000-0010\",\n  \"municipio\": \"Piedade\",\n  \"uf\": \"SP\"\n}"
+      }
+    },
+    {
+      "_id": "req_04",
+      "_type": "request",
+      "parentId": "fld_1",
+      "name": "Buscar produtor por id",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/produtores/4",
+      "metaSortKey": 4,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "req_05",
+      "_type": "request",
+      "parentId": "fld_1",
+      "name": "Atualizar produtor",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/v1/produtores/4",
+      "metaSortKey": 5,
+      "description": "Status esperado: 200",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"telefone\": \"(15) 90000-0099\"\n}"
+      }
+    },
+    {
+      "_id": "req_06",
+      "_type": "request",
+      "parentId": "fld_1",
+      "name": "ERRO - dados inválidos (422)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/produtores",
+      "metaSortKey": 6,
+      "description": "Status esperado: 422",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Jo\",\n  \"municipio\": \"X\",\n  \"uf\": \"sp\"\n}"
+      }
+    },
+    {
+      "_id": "req_07",
+      "_type": "request",
+      "parentId": "fld_1",
+      "name": "ERRO - produtor inexistente (404)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/produtores/9999",
+      "metaSortKey": 7,
+      "description": "Status esperado: 404",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "fld_2",
+      "_type": "request_group",
+      "parentId": "wrk_gota",
+      "name": "2. Propriedades",
+      "metaSortKey": 3
+    },
+    {
+      "_id": "req_08",
+      "_type": "request",
+      "parentId": "fld_2",
+      "name": "Listar propriedades",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/propriedades",
+      "metaSortKey": 8,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "req_09",
+      "_type": "request",
+      "parentId": "fld_2",
+      "name": "Cadastrar propriedade",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/propriedades",
+      "metaSortKey": 9,
+      "description": "Status esperado: 201",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"produtor_id\": 4,\n  \"nome\": \"Sítio Recanto Verde\",\n  \"municipio\": \"Piedade\",\n  \"latitude\": -23.7,\n  \"longitude\": -47.41,\n  \"area_hectares\": 3.0,\n  \"cultura\": \"Pimentão\",\n  \"umidade_minima_ideal\": 35,\n  \"umidade_maxima_ideal\": 70\n}"
+      }
+    },
+    {
+      "_id": "req_10",
+      "_type": "request",
+      "parentId": "fld_2",
+      "name": "Atualizar propriedade",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/v1/propriedades/5",
+      "metaSortKey": 10,
+      "description": "Status esperado: 200",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"cultura\": \"Pimentão orgânico\"\n}"
+      }
+    },
+    {
+      "_id": "req_11",
+      "_type": "request",
+      "parentId": "fld_2",
+      "name": "ERRO - faixa de umidade inválida (422)",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/v1/propriedades/5",
+      "metaSortKey": 11,
+      "description": "Status esperado: 422",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"umidade_minima_ideal\": 90\n}"
+      }
+    },
+    {
+      "_id": "fld_3",
+      "_type": "request_group",
+      "parentId": "wrk_gota",
+      "name": "3. Dispositivos (ESP32)",
+      "metaSortKey": 4
+    },
+    {
+      "_id": "req_12",
+      "_type": "request",
+      "parentId": "fld_3",
+      "name": "Cadastrar dispositivo",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/dispositivos",
+      "metaSortKey": 12,
+      "description": "Status esperado: 201",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"codigo\": \"gota-005\",\n  \"propriedade_id\": 5,\n  \"descricao\": \"Kit ESP32 - Sítio Recanto Verde\"\n}"
+      }
+    },
+    {
+      "_id": "req_13",
+      "_type": "request",
+      "parentId": "fld_3",
+      "name": "ERRO - código duplicado (409)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/dispositivos",
+      "metaSortKey": 13,
+      "description": "Status esperado: 409",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"codigo\": \"gota-005\",\n  \"propriedade_id\": 5\n}"
+      }
+    },
+    {
+      "_id": "req_14",
+      "_type": "request",
+      "parentId": "fld_3",
+      "name": "Listar dispositivos da propriedade",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/dispositivos?propriedade_id=5",
+      "metaSortKey": 14,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "fld_4",
+      "_type": "request_group",
+      "parentId": "wrk_gota",
+      "name": "4. Leituras (telemetria do ESP32)",
+      "metaSortKey": 5
+    },
+    {
+      "_id": "req_15",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "Solo seco + 90% de chuva = AGUARDAR_CHUVA",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/leituras",
+      "metaSortKey": 15,
+      "description": "Status esperado: 201",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"codigo_dispositivo\": \"gota-005\",\n  \"umidade_solo\": 22,\n  \"temperatura_ar\": 30,\n  \"umidade_ar\": 45,\n  \"probabilidade_chuva\": 90,\n  \"bomba_ligada\": false\n}"
+      }
+    },
+    {
+      "_id": "req_16",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "Solo seco + sem chuva = IRRIGAR",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/leituras",
+      "metaSortKey": 16,
+      "description": "Status esperado: 201",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"codigo_dispositivo\": \"gota-005\",\n  \"umidade_solo\": 24,\n  \"temperatura_ar\": 31,\n  \"umidade_ar\": 40,\n  \"probabilidade_chuva\": 10,\n  \"bomba_ligada\": false\n}"
+      }
+    },
+    {
+      "_id": "req_17",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "Solo crítico = IRRIGAR mesmo com chuva",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/leituras",
+      "metaSortKey": 17,
+      "description": "Status esperado: 201",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"codigo_dispositivo\": \"gota-005\",\n  \"umidade_solo\": 10,\n  \"temperatura_ar\": 36,\n  \"umidade_ar\": 25,\n  \"probabilidade_chuva\": 85,\n  \"bomba_ligada\": false\n}"
+      }
+    },
+    {
+      "_id": "req_18",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "Solo úmido = NAO_IRRIGAR",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/leituras",
+      "metaSortKey": 18,
+      "description": "Status esperado: 201",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"codigo_dispositivo\": \"gota-005\",\n  \"umidade_solo\": 72,\n  \"temperatura_ar\": 24,\n  \"umidade_ar\": 70,\n  \"probabilidade_chuva\": 20,\n  \"bomba_ligada\": true\n}"
+      }
+    },
+    {
+      "_id": "req_19",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "ERRO - dispositivo não cadastrado (404)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/leituras",
+      "metaSortKey": 19,
+      "description": "Status esperado: 404",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"codigo_dispositivo\": \"gota-999\",\n  \"umidade_solo\": 50,\n  \"temperatura_ar\": 25,\n  \"umidade_ar\": 50,\n  \"probabilidade_chuva\": 0\n}"
+      }
+    },
+    {
+      "_id": "req_20",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "ERRO - umidade acima de 100% (422)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/leituras",
+      "metaSortKey": 20,
+      "description": "Status esperado: 422",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"codigo_dispositivo\": \"gota-005\",\n  \"umidade_solo\": 150,\n  \"temperatura_ar\": 25,\n  \"umidade_ar\": 50,\n  \"probabilidade_chuva\": 0\n}"
+      }
+    },
+    {
+      "_id": "req_21",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "Histórico de leituras da propriedade",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/leituras?propriedade_id=5&limite=10",
+      "metaSortKey": 21,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "fld_5",
+      "_type": "request_group",
+      "parentId": "wrk_gota",
+      "name": "5. Recomendações",
+      "metaSortKey": 6
+    },
+    {
+      "_id": "req_22",
+      "_type": "request",
+      "parentId": "fld_5",
+      "name": "Registrar decisão da IA (Python)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/recomendacoes",
+      "metaSortKey": 22,
+      "description": "Status esperado: 201",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"propriedade_id\": 5,\n  \"acao\": \"AGUARDAR_CHUVA\",\n  \"origem\": \"IA\",\n  \"motivo\": \"Modelo de ML prevê 90% de chuva nas próximas 2h. Não ligar a bomba.\",\n  \"confianca\": 0.87\n}"
+      }
+    },
+    {
+      "_id": "req_23",
+      "_type": "request",
+      "parentId": "fld_5",
+      "name": "Última recomendação da propriedade",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/recomendacoes/ultima/5",
+      "metaSortKey": 23,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "req_24",
+      "_type": "request",
+      "parentId": "fld_5",
+      "name": "Histórico de recomendações",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/recomendacoes?propriedade_id=5",
+      "metaSortKey": 24,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "fld_6",
+      "_type": "request_group",
+      "parentId": "wrk_gota",
+      "name": "6. Alertas (app do agricultor)",
+      "metaSortKey": 7
+    },
+    {
+      "_id": "req_25",
+      "_type": "request",
+      "parentId": "fld_6",
+      "name": "Alertas não lidos da propriedade",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/alertas?propriedade_id=5&lido=false",
+      "metaSortKey": 25,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "req_26",
+      "_type": "request",
+      "parentId": "fld_6",
+      "name": "Alertas de severidade ALTA",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/alertas?severidade=ALTA",
+      "metaSortKey": 26,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "req_27",
+      "_type": "request",
+      "parentId": "fld_6",
+      "name": "Marcar alerta como lido",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/api/v1/alertas/1/lido",
+      "metaSortKey": 27,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "fld_7",
+      "_type": "request_group",
+      "parentId": "wrk_gota",
+      "name": "7. Painel regional (C# WinForms)",
+      "metaSortKey": 8
+    },
+    {
+      "_id": "req_28",
+      "_type": "request",
+      "parentId": "fld_7",
+      "name": "Estresse hídrico - todas as propriedades",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/painel/estresse-hidrico",
+      "metaSortKey": 28,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "req_29",
+      "_type": "request",
+      "parentId": "fld_7",
+      "name": "Estresse hídrico - por município",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/painel/estresse-hidrico?municipio=Piedade",
+      "metaSortKey": 29,
+      "description": "Status esperado: 200",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "fld_8",
+      "_type": "request_group",
+      "parentId": "wrk_gota",
+      "name": "8. Limpeza",
+      "metaSortKey": 9
+    },
+    {
+      "_id": "req_30",
+      "_type": "request",
+      "parentId": "fld_8",
+      "name": "Remover dispositivo",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/v1/dispositivos/5",
+      "metaSortKey": 30,
+      "description": "Status esperado: 204",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "req_31",
+      "_type": "request",
+      "parentId": "fld_8",
+      "name": "Remover propriedade",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/v1/propriedades/5",
+      "metaSortKey": 31,
+      "description": "Status esperado: 204",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "req_32",
+      "_type": "request",
+      "parentId": "fld_8",
+      "name": "Remover produtor",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/v1/produtores/4",
+      "metaSortKey": 32,
+      "description": "Status esperado: 204",
+      "headers": [],
+      "body": {}
+    }
+  ]
+}
